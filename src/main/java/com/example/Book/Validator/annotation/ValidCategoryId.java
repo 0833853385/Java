@@ -1,6 +1,7 @@
-package com.example.btcn_thuchanhjava.Validator.annotation;
+package com.example.Book.Validator.annotation;
 
-import com.example.btcn_thuchanhjava.Validator.ValidCategoryIdValidator;
+
+import com.example.Book.Validator.ValidCategoryIdValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 

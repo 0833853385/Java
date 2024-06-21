@@ -1,9 +1,10 @@
-package com.example.btcn_thuchanhjava.Validator;
+package com.example.Book.Validator;
 
 
-import com.example.btcn_thuchanhjava.entity.User;
-import com.example.btcn_thuchanhjava.Validator.annotation.ValidUserId;
 
+
+import com.example.Book.Validator.annotation.ValidUserId;
+import com.example.Book.entity.User;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

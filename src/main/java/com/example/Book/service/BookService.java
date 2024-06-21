@@ -1,49 +1,34 @@
 package com.example.Book.service;
 
-import com.example.Book.Model.Book;
-import org.springframework.http.HttpStatus;
+import com.example.Book.entity.Book;
+import com.example.Book.repository.IBookRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
 public class BookService {
-    private List<Book> listBook = new ArrayList<>( Arrays.asList(
-            new Book(1, "Lập trình Windows", "Tran Phuoc Thuan", 99999),
-            new Book(2, "Lập trình Web", "Nguyễn Huy Cường", 12345),
-            new Book(3, "Lâp trình ứng dụng Java", "Nguyễn Huy Cường", 454534),
-            new Book(4, "Thương mại điện tử", "Nguyễn Đình Ánh", 848593)));
-    public List<Book> getAll()
-    {
-        return listBook;
+
+    @Autowired
+    private IBookRepository bookRepository;
+
+    public List<Book> getAllBooks() {
+        return bookRepository.findAll();
     }
-    public Book get(int id)
-    {
-        var findBook = listBook.stream().filter(p->p.getId()== id).findFirst().orElse(null);
-        if(findBook == null)
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        return findBook;
+
+    public Book getBookById(Long id) {
+        return bookRepository.findById(id).orElse(null);
     }
-    public void add(Book newbook)
-    {
-        var maxId = listBook
-                .stream()
-                .mapToInt(v -> v.getId())
-                .max().orElse( 0);
-        newbook.setId(maxId +1);
-        listBook.add(newbook);
+
+    public void addBook(Book book) {
+        bookRepository.save(book);
     }
-    public void remove(int id)
-    {
-        var findBook = listBook.stream().filter(p->p.getId() == id).findFirst().orElseThrow();
-        listBook.remove(findBook);
+
+    public void updateBook(Book book) {
+        bookRepository.save(book);
     }
-    public List<Book> search(String key)
-    {
-        return listBook.stream().filter(p->p.getAuthor().toLowerCase().contains(key) || p.getTitle().toLowerCase().contains(key)).toList();
+
+    public void deleteBook(Long id) {
+        bookRepository.deleteById(id);
     }
 }
